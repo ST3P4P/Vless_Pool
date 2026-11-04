@@ -1,0 +1,44 @@
+name: check-keys
+
+on:
+  schedule:
+    - cron: '7,37 * * * *'   # каждые 30 минут
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: check-keys
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install sing-box
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download -R SagerNet/sing-box -p '*-linux-amd64.tar.gz' -O sb.tar.gz
+          mkdir -p "$RUNNER_TEMP/sb"
+          tar -xzf sb.tar.gz -C "$RUNNER_TEMP/sb" --strip-components=1 --wildcards '*/sing-box'
+          echo "SB=$RUNNER_TEMP/sb/sing-box" >> "$GITHUB_ENV"
+          "$RUNNER_TEMP/sb/sing-box" version | head -n 1
+
+      - name: Check keys
+        run: bash check.sh
+
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data
+          if ! git diff --cached --quiet; then
+            git commit -m "Update keys $(date -u '+%F %H:%M') UTC"
+            git pull --rebase -q
+            git push
+          fi
