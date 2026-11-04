@@ -1,8 +1,8 @@
 # Vless_Pool
 
-Каждые 30 минут GitHub Actions собирает публичные VLESS-ключи, **по-настоящему** проверяет каждый
-через sing-box (поднимает ключ и делает запрос в интернет, а не просто стучится в порт) и кладёт
-рабочие в [`data/good.txt`](data/good.txt), быстрые первыми. Больше двух ключей на один сервер не берётся.
+Каждые 30 минут GitHub Actions собирает публичные VLESS-ключи, проверяет каждый
+через sing-box и кладёт рабочие в 
+[`data/good.txt`](data/good.txt), быстрые первыми. Больше двух ключей на один сервер не берётся.
 
 Источники:
 - [igareck/vpn-configs-for-russia](https://github.com/igareck/vpn-configs-for-russia) (`BLACK_VLESS_RUS.txt`);
