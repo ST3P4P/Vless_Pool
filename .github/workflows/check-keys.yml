@@ -39,6 +39,5 @@ jobs:
           git add data
           if ! git diff --cached --quiet; then
             git commit -m "Update keys $(date -u '+%F %H:%M') UTC"
-            git pull --rebase -q
-            git push
+            for i in 1 2 3 4; do git pull --rebase -q && git push && break; sleep $((i*15)); done
           fi
