@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-11-08 02:17 UTC",
-  "source_total": 902,
-  "tested": 600,
-  "ok": 209,
-  "kept": 60
+  "updated_at": "2026-11-08 09:24 UTC",
+  "source_total": 285,
+  "tested": 285,
+  "ok": 86,
+  "kept": 42
 }
