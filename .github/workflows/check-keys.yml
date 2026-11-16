@@ -1,8 +1,6 @@
 name: check-keys
 
 on:
-  schedule:
-    - cron: '7,37 * * * *'   # каждые 30 минут
   workflow_dispatch:
 
 permissions:
